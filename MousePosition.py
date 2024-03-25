@@ -6,7 +6,7 @@ def on_space_pressed(key):
         x, y = pyautogui.position()
         rgb = pyautogui.pixel(x, y)
         print(f"Coordenadas do mouse: ({x}, {y}), RGB: {rgb}")
-        return False  # Encerra o loop de detecção após a primeira ocorrência
+        return False
 
 print("Pressione a tecla de espaço para obter as coordenadas e a cor RGB do mouse...")
 
