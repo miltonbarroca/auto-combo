@@ -1,10 +1,44 @@
 import threading
 import pyautogui as pg
 import time
-import random
 from pynput import keyboard as kb
-import CheckStatus
+import random
 
+# Definições das funções exura, mana e life
+def exura():
+    print('Executando Exura')
+    while programa.executando:  # Continua executando enquanto o programa estiver em execução
+        if not programa.pausado:
+            try:
+                if pg.pixelMatchesColor(759, 794, (73, 74, 74)):  # Passa os valores diretamente
+                    pg.press('2')
+            except pg.FailSafeException:  # Trata exceção quando o pixel não é encontrado
+                pass
+        time.sleep(1.9)  # Ajusta o delay conforme necessário
+
+def mana():
+    print('Verificando Mana')
+    while programa.executando:  # Continua executando enquanto o programa estiver em execução
+        if not programa.pausado:
+            try:
+                if pg.pixelMatchesColor(1073, 794, (121, 121, 121)):  # Passa os valores diretamente
+                    pg.press('3')
+            except pg.FailSafeException:  # Trata exceção quando o pixel não é encontrado
+                pass
+        time.sleep(2.1)  # Ajusta o delay conforme necessário
+
+def life():
+    print('Verificando Life')
+    while programa.executando:  # Continua executando enquanto o programa estiver em execução
+        if not programa.pausado:
+            try:
+                if pg.pixelMatchesColor(605, 792, (69, 70, 70)):  # Passa os valores diretamente
+                    pg.press('1')
+            except pg.FailSafeException:  # Trata exceção quando o pixel não é encontrado
+                pass
+        time.sleep(1)  # Ajusta o delay conforme necessário
+
+# Restante do código
 class MeuPrograma:
     def __init__(self):
         self.executando = False
@@ -15,7 +49,7 @@ class MeuPrograma:
         self.listener = kb.Listener(on_press=self.on_press)
         self.listener.start()
 
-        print('Aguardando pela tecla "=" para iniciar...')
+        print("Pressione '=' para iniciar o programa.")
 
     def loop_kill_box(self):
         while self.executando:
@@ -28,7 +62,11 @@ class MeuPrograma:
             if key.char == '=' and not self.executando:
                 self.executando = True
                 print("Programa iniciado")
+
                 threading.Thread(target=self.loop_kill_box).start()
+                threading.Thread(target=exura).start()  # Inicia a função exura em uma thread separada
+                threading.Thread(target=mana).start()   # Inicia a função mana em uma thread separada
+                threading.Thread(target=life).start()   # Inicia a função life em uma thread separada
             elif key.char == 'p':
                 self.pausado = not self.pausado
                 print("Programa pausado" if self.pausado else "Programa retomado")
