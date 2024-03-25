@@ -67,4 +67,4 @@ def kill_box():
 if __name__ == "__main__":
     programa = MeuPrograma()
     programa.iniciar()
-    programa.listener.join()  # Esperar até que a thread do listener termine
+    programa.listener.join()

@@ -1,13 +1,13 @@
 import pyautogui
-import keyboard
+from pynput import keyboard
 
-def on_insert_pressed(e):
-    if e.name == 'insert':
+def on_space_pressed(key):
+    if key == keyboard.Key.space:
         x, y = pyautogui.position()
         rgb = pyautogui.pixel(x, y)
         print(f"Coordenadas do mouse: ({x}, {y}), RGB: {rgb}")
 
-print("Pressione Insert para obter as coordenadas e a cor RGB do mouse...")
+print("Pressione a tecla de espaço para obter as coordenadas e a cor RGB do mouse...")
 
-keyboard.hook(on_insert_pressed)
-keyboard.wait('esc') 
+with keyboard.Listener(on_press=on_space_pressed) as listener:
+    listener.join()
