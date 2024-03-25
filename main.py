@@ -1,80 +1,70 @@
 import threading
 import pyautogui as pg
 import time
-import keyboard
-import Constants
+from pynput import keyboard as kb
+import random
 
-pause_programa = False
-finalizar_programa = False
+class MeuPrograma:
+    def __init__(self):
+        self.executando = False
+        self.pausado = False
+        self.listener = None
 
-def exeta():
-    global pause_programa
-    for tecla in Constants.EXETA:
-        if pause_programa:
-            break
-        pg.press(tecla)
+    def iniciar(self):
+        self.listener = kb.Listener(on_press=self.on_press)
+        self.listener.start()
 
-def utito():
-    global pause_programa
-    for tecla in Constants.UTITO:
-        if pause_programa:
-            break
-        pg.press(tecla)
+        print('Aguardando pela tecla "=" para iniciar...')
 
-def auto_combo():
-    global pause_programa, finalizar_programa
-    while not finalizar_programa:
-        if pause_programa:
-            time.sleep(Constants.PAUSA_VERIFICACAO)
-            continue
-        exeta()
-        for tecla, cooldown in zip(Constants.ATK_SPELLS, Constants.ATK_COOLDOWNS):
-            if pause_programa:
-                break
-            if tecla == '8':
-                exeta()
-            if tecla == '9':
-                utito()
-            pg.press(tecla)
-            time.sleep(cooldown)
-
-def pause():
-    global pause_programa, finalizar_programa
-    while not finalizar_programa:
-        if keyboard.is_pressed('p'):
-            pause_programa = not pause_programa
-            if pause_programa:
-                print('pausado')
-            else:
-                print('retomado')
+    def loop_kill_box(self):
+        while self.executando:
+            if not self.pausado:
+                kill_box()
             time.sleep(1)
 
-def set_finalizar_programa(value):
-    global finalizar_programa
-    finalizar_programa = value
+    def on_press(self, key):
+        try:
+            if key.char == '=' and not self.executando:
+                self.executando = True
+                print("Programa iniciado")
+                threading.Thread(target=self.loop_kill_box).start()
+            elif key.char == 'p':
+                self.pausado = not self.pausado
+                print("Programa pausado" if self.pausado else "Programa retomado")
+            elif key.char == 'o':
+                self.encerrar()
+                print("Programa encerrado")
+        except AttributeError:
+            pass
 
+    def encerrar(self):
+        self.executando = False
+        self.pausado = False
+        self.listener.stop()
 
-# Esperar pela tecla '=' antes de começar
-print('Aguardando pela tecla "=" para iniciar...')
-while True:
-    if keyboard.is_pressed('='):
-        break
+def kill_box():
+    if programa.pausado:
+        return
+    pg.press('9')
+    if programa.pausado:
+        return
+    time.sleep(random.uniform(2, 2.5))
+    pg.press('space')
+    pg.press('8')
+    if programa.pausado:
+        return
+    time.sleep(random.uniform(2, 2.5))
+    pg.press('9')
+    if programa.pausado:
+        return
+    time.sleep(random.uniform(2, 2.5))
+    pg.press('0')
+    if programa.pausado:
+        return
+    pg.press('space')
+    time.sleep(random.uniform(2, 2.5))
 
-# Iniciar threads após a tecla '=' ser pressionada
-thread_combo_atk = threading.Thread(target=auto_combo)
-thread_pause = threading.Thread(target=pause)
-
-thread_combo_atk.start()
-thread_pause.start()
-
-# Aguardar até que o usuário pressione 'o' para finalizar o programa
-while True:
-    if keyboard.is_pressed('o'):
-        set_finalizar_programa(True)
-        break
-
-# Aguardar até que as threads terminem
-thread_combo_atk.join()
-thread_pause.join()
-
-print('Programa finalizado')
+if __name__ == "__main__":
+    programa = MeuPrograma()
+    programa.iniciar()
+    programa.listener.join()  # Esperar até que a thread do listener termine
