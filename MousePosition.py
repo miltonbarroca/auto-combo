@@ -12,4 +12,3 @@ print("Pressione a tecla de espaço para obter as coordenadas e a cor RGB do mou
 
 with keyboard.Listener(on_press=on_space_pressed) as listener:
     listener.join()
- 

@@ -1,8 +1,9 @@
 import threading
 import pyautogui as pg
 import time
-from pynput import keyboard as kb
 import random
+from pynput import keyboard as kb
+import CheckStatus
 
 class MeuPrograma:
     def __init__(self):
