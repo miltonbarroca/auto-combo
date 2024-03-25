@@ -10,4 +10,4 @@ def on_space_pressed(key):
 print("Pressione a tecla de espaço para obter as coordenadas e a cor RGB do mouse...")
 
 with keyboard.Listener(on_press=on_space_pressed) as listener:
-    listener.join()
+    listener.join() 
