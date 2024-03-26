@@ -8,7 +8,7 @@ import numpy as np
 
 def encontrar_imagem(image_path):
     screen = pg.screenshot()
-    screen_np = np.array(screen)
+    screen_np = np.array(screen)    
     screen_gray = cv2.cvtColor(screen_np, cv2.COLOR_BGR2GRAY)
     
     template = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
@@ -32,10 +32,19 @@ def mana_check(image_path):
         
 def vida_check(image_path):
     if encontrar_imagem(image_path):
-        print("Vida está cheia!")
-    else:
-        print("Vida não está cheia. Pressionando 1...")
+        print("Vida não está cheia! Pressionando 1...")
         pg.press('1')
+    else:
+        print("Vida está cheia. ")
+        
+def exura_check(image_path):
+    if encontrar_imagem(image_path):
+        print("Vida não está cheia! Pressionando 2...exec exura")
+        pg.press('2')
+    else:
+        print("Vida está cheia. ...sem exura")     
+
+        
 
 class MeuPrograma:
     def __init__(self):
@@ -59,13 +68,19 @@ class MeuPrograma:
         while self.executando:
             if not self.pausado:
                 mana_check(image_path)
-            time.sleep(1)
+            time.sleep(1.1)
 
     def vida_check_loop(self, image_path):
         while self.executando:
             if not self.pausado:
                 vida_check(image_path)
-            time.sleep(1)
+            time.sleep(1.3)
+            
+    def exura_check_loop(self, image_path):
+        while self.executando:
+            if not self.pausado:
+                exura_check(image_path)
+            time.sleep(1.2)
 
     def on_press(self, key):
         try:
@@ -74,8 +89,10 @@ class MeuPrograma:
                 print("Programa iniciado")
 
                 # threading.Thread(target=self.loop_kill_box).start()
-                threading.Thread(target=self.mana_check_loop, args=('img/mana_vazia.png',)).start()
-                # threading.Thread(target=self.vida_check_loop, args=('img/vida_cheia.jpg',)).start()
+                threading.Thread(target=self.mana_check_loop, args=('img/mana_vazia_actionbar.png',)).start()
+                threading.Thread(target=self.vida_check_loop, args=('img/life_vazia_actionbar.png',)).start()
+                threading.Thread(target=self.exura_check_loop, args=('img/exura_life_vazia_actionbar.png',)).start()
+                
             elif key.char == 'p':
                 self.pausado = not self.pausado
                 print("Programa pausado" if self.pausado else "Programa retomado")
