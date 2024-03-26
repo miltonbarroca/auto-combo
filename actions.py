@@ -25,7 +25,8 @@ def get_loot():
 
 
 def teste():
-    box = pg.locateOnScreen('img/mana_region.jpg')
-    print(box)
+    while True:
+        box = pg.locateOnScreen('img/mana_region.jpg')
+        print(box)
 
 teste()
