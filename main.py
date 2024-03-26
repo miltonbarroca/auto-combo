@@ -37,11 +37,13 @@ def mana():
     while programa.executando:
         if not programa.pausado:
             try:
-                if verifica_cor_na_area(1073, 794, 5, 5, (121, 121, 121)):
+                image_location = pg.locateOnScreen('img/mana.jpg', confidence=0.3)
+                if image_location:
                     pg.press('3') #hotkey pot mana
             except pg.FailSafeException:  
                 pass
         time.sleep(random.uniform(2.3, 2.8))  # Ajusta o delay conforme necessário
+
 
 def life():
     print('Verificando Life')
