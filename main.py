@@ -23,9 +23,10 @@ def mana():
                 while not pg.locateOnScreen('img/mana_cheia.jpg'):
                     pg.press('3')  # Pressiona a tecla "3"
                     time.sleep(0.1)  # Espera um curto período antes de verificar novamente
-            except pg.FailSafeException:  
+            except pg.ImageNotFoundException:  
                 pass
         time.sleep(2.1)  # Ajusta o delay conforme necessário
+
 
 def life():
     print('Verificando Life')
