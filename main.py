@@ -4,12 +4,29 @@ import time
 from pynput import keyboard as kb
 import random
 
+def verifica_cor_na_area(x, y, largura, altura, cor):
+    """
+    Verifica se a cor está presente em uma área retangular de pixels.
+    
+    :param x: coordenada x do canto superior esquerdo da área
+    :param y: coordenada y do canto superior esquerdo da área
+    :param largura: largura da área
+    :param altura: altura da área
+    :param cor: tupla representando a cor (R, G, B)
+    :return: True se a cor for encontrada, False caso contrário
+    """
+    for i in range(x, x + largura):
+        for j in range(y, y + altura):
+            if pg.pixelMatchesColor(i, j, cor):
+                return True
+    return False
+
 def exura():
     print('Executando Exura')
     while programa.executando:
         if not programa.pausado:
             try:
-                if pg.pixelMatchesColor(759, 794, (73, 74, 74)):
+                if verifica_cor_na_area(759, 794, 5, 5, (73, 74, 74)):
                     pg.press('2') #hotkey exura
             except pg.FailSafeException:
                 pass
@@ -20,7 +37,7 @@ def mana():
     while programa.executando:
         if not programa.pausado:
             try:
-                if pg.pixelMatchesColor(1073, 794, (121, 121, 121)):
+                if verifica_cor_na_area(1073, 794, 5, 5, (121, 121, 121)):
                     pg.press('3') #hotkey pot mana
             except pg.FailSafeException:  
                 pass
@@ -31,11 +48,12 @@ def life():
     while programa.executando:
         if not programa.pausado:
             try:
-                if pg.pixelMatchesColor(605, 792, (69, 70, 70)):
+                if verifica_cor_na_area(605, 792, 5, 5, (69, 70, 70)):
                     pg.press('1') #hotkey pot vida
             except pg.FailSafeException:
                 pass
         time.sleep(1) # Ajusta o delay conforme necessário
+
 
 class MeuPrograma:
     def __init__(self):
