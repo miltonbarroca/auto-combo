@@ -25,11 +25,11 @@ def encontrar_imagem(image_path):
 
 def mana_check(image_path):
     if encontrar_imagem(image_path):
-        print("Mana está cheia!")
-    else:
-        print("Mana não está cheia. Pressionando 3...")
+        print("Mana está vazia! Pressionando 3...")
         pg.press('3')
-
+    else:
+        print("Mana está cheia")
+        
 def vida_check(image_path):
     if encontrar_imagem(image_path):
         print("Vida está cheia!")
@@ -73,9 +73,9 @@ class MeuPrograma:
                 self.executando = True
                 print("Programa iniciado")
 
-                threading.Thread(target=self.loop_kill_box).start()
-                threading.Thread(target=self.mana_check_loop, args=('img/mana_cheia.jpg',)).start()
-                threading.Thread(target=self.vida_check_loop, args=('img/vida_cheia.jpg',)).start()
+                # threading.Thread(target=self.loop_kill_box).start()
+                threading.Thread(target=self.mana_check_loop, args=('img/mana_vazia.png',)).start()
+                # threading.Thread(target=self.vida_check_loop, args=('img/vida_cheia.jpg',)).start()
             elif key.char == 'p':
                 self.pausado = not self.pausado
                 print("Programa pausado" if self.pausado else "Programa retomado")
