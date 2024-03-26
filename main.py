@@ -62,9 +62,9 @@ class MeuPrograma:
                 print("Programa iniciado")
 
                 threading.Thread(target=self.loop_kill_box).start()
-                threading.Thread(target=exura).start()  
+#                threading.Thread(target=exura).start()  
                 threading.Thread(target=mana).start()   
-                threading.Thread(target=life).start()   
+#                threading.Thread(target=life).start()   
             elif key.char == 'p':
                 self.pausado = not self.pausado
                 print("Programa pausado" if self.pausado else "Programa retomado")
