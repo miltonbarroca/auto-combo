@@ -88,7 +88,7 @@ class MeuPrograma:
                 self.executando = True
                 print("Programa iniciado")
 
-                # threading.Thread(target=self.loop_kill_box).start()
+                threading.Thread(target=self.loop_kill_box).start()
                 threading.Thread(target=self.mana_check_loop, args=('img/mana_vazia_actionbar.png',)).start()
                 threading.Thread(target=self.vida_check_loop, args=('img/life_vazia_actionbar.png',)).start()
                 threading.Thread(target=self.exura_check_loop, args=('img/exura_life_vazia_actionbar.png',)).start()
