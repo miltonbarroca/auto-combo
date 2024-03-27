@@ -22,11 +22,3 @@ def get_loot():
         pg.click(x=coord[0], y=coord[1], button='right')
     time.sleep(0.1)  # Aguarda um curto período de tempo
     keyboard.release(Key.shift)
-
-
-def teste():
-    while True:
-        box = pg.locateOnScreen('img/mana_region.jpg')
-        print(box)
-
-teste()

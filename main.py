@@ -44,7 +44,19 @@ def exura_check(image_path):
     else:
         print("Vida está cheia. ...sem exura")     
 
+def ring_check(image_path):
+    if encontrar_imagem(image_path):
+        print("Sem Ring. Colocando ring..press 5")
+        pg.press('5')
+    else:
+        print("Ring OK!") 
         
+def colar_check(image_path):
+    if encontrar_imagem(image_path):
+        print("Sem Colar. Colocando Colar..press 6")
+        pg.press('6')
+    else:
+        print("Colar OK!") 
 
 class MeuPrograma:
     def __init__(self):
@@ -68,19 +80,32 @@ class MeuPrograma:
         while self.executando:
             if not self.pausado:
                 mana_check(image_path)
-            time.sleep(1.1)
+            time.sleep(0.9)
 
     def vida_check_loop(self, image_path):
         while self.executando:
             if not self.pausado:
                 vida_check(image_path)
-            time.sleep(1.3)
+            time.sleep(1)
             
     def exura_check_loop(self, image_path):
         while self.executando:
             if not self.pausado:
                 exura_check(image_path)
-            time.sleep(1.2)
+            time.sleep(1.1)
+            
+    def ring_check_loop(self, image_path):
+        while self.executando:
+            if not self.pausado:
+                ring_check(image_path)
+            time.sleep(6)
+            
+    def colar_check_loop(self, image_path):
+        while self.executando:
+            if not self.pausado:
+                colar_check(image_path)
+            time.sleep(5)
+            
 
     def on_press(self, key):
         try:
@@ -92,7 +117,8 @@ class MeuPrograma:
                 threading.Thread(target=self.mana_check_loop, args=('img/mana_vazia_actionbar.png',)).start()
                 threading.Thread(target=self.vida_check_loop, args=('img/life_vazia_actionbar.png',)).start()
                 threading.Thread(target=self.exura_check_loop, args=('img/exura_life_vazia_actionbar.png',)).start()
-                
+                threading.Thread(target=self.ring_check_loop, args=('img/slot_ring.png',)).start()
+                threading.Thread(target=self.colar_check_loop, args=('img/slot_colar.png',)).start()
             elif key.char == 'p':
                 self.pausado = not self.pausado
                 print("Programa pausado" if self.pausado else "Programa retomado")
