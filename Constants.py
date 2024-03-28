@@ -3,7 +3,7 @@ import pyautogui as pg
 
 FOLDER_NAME = 'teste'
 
-MINIMAP = (1753,26,108,112)
+MINIMAP = (1749,54,112,113)
 
 PIXEL_MANA = (1073, 794)
 COR_MANA = (121, 121, 121)
