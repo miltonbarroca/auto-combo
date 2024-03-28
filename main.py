@@ -5,6 +5,7 @@ from pynput import keyboard as kb
 import random
 import cv2
 import numpy as np
+from pynput.keyboard import Key, Controller
 
 def encontrar_imagem(image_path):
     screen = pg.screenshot()
@@ -63,6 +64,7 @@ class MeuPrograma:
         self.executando = False
         self.pausado = False
         self.listener = None
+        self.pausadocombo = False
 
     def iniciar(self):
         self.listener = kb.Listener(on_press=self.on_press)
@@ -72,9 +74,15 @@ class MeuPrograma:
 
     def loop_kill_box(self):
         while self.executando:
-            if not self.pausado:
+            if not self.pausadocombo:
                 kill_box()
             time.sleep(1)
+            
+    def loop_get_loot(self):
+        while self.executando:
+            if not self.pausadocombo:
+                get_loot()
+            time.sleep(4)
 
     def mana_check_loop(self, image_path):
         while self.executando:
@@ -86,13 +94,13 @@ class MeuPrograma:
         while self.executando:
             if not self.pausado:
                 vida_check(image_path)
-            time.sleep(1)
+            time.sleep(0.6)
             
     def exura_check_loop(self, image_path):
         while self.executando:
             if not self.pausado:
                 exura_check(image_path)
-            time.sleep(1.1)
+            time.sleep(0.5)
             
     def ring_check_loop(self, image_path):
         while self.executando:
@@ -114,6 +122,7 @@ class MeuPrograma:
                 print("Programa iniciado")
 
                 threading.Thread(target=self.loop_kill_box).start()
+                threading.Thread(target=self.loop_get_loot).start()
                 threading.Thread(target=self.mana_check_loop, args=('img/mana_vazia_actionbar.png',)).start()
                 threading.Thread(target=self.vida_check_loop, args=('img/life_vazia_actionbar.png',)).start()
                 threading.Thread(target=self.exura_check_loop, args=('img/exura_life_vazia_actionbar.png',)).start()
@@ -122,6 +131,9 @@ class MeuPrograma:
             elif key.char == 'p':
                 self.pausado = not self.pausado
                 print("Programa pausado" if self.pausado else "Programa retomado")
+            elif key.char == '[':
+                self.pausadocombo = not self.pausadocombo
+                print("Combo pausado" if self.pausadocombo else "Combo retomado")
             elif key.char == 'o':
                 self.encerrar()
                 print("Programa encerrado")
@@ -134,27 +146,52 @@ class MeuPrograma:
         self.listener.stop()
 
 def kill_box():
-    if programa.pausado:
+    if programa.pausadocombo:
         return
     pg.press('9')
-    if programa.pausado:
+    if programa.pausadocombo:
         return
     time.sleep(random.uniform(2, 2.5))
-    pg.press('space')
     pg.press('8')
-    if programa.pausado:
+    pg.press('space')
+    pg.press('4')
+    if programa.pausadocombo:
         return
     time.sleep(random.uniform(2, 2.5))
     pg.press('9')
-    if programa.pausado:
+    if programa.pausadocombo:
         return
     time.sleep(random.uniform(2, 2.5))
     pg.press('0')
-    if programa.pausado:
+    if programa.pausadocombo:
         return
     pg.press('space')
+    pg.press('4')
+    if programa.pausadocombo:
+        return
     time.sleep(random.uniform(2, 2.5))
+    
+loot_coordinates = [
 
+    (891, 432),
+    (835, 432),
+    (778, 432),
+    (778, 374),
+    (778, 315),
+    (835, 315),
+    (891, 315),
+    (891, 374)
+]
+def get_loot():
+    print('Coletando loot...')
+    keyboard = Controller()
+    # keyboard.press(Key.shift)
+    # time.sleep(0.1)  # Aguarda um curto período de tempo
+    for coord in loot_coordinates:
+        pg.click(x=coord[0], y=coord[1], button='right')
+    time.sleep(0.1)  # Aguarda um curto período de tempo
+    # keyboard.release(Key.shift)
+    
 if __name__ == "__main__":
     programa = MeuPrograma()
     programa.iniciar()
