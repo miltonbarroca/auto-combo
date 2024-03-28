@@ -21,8 +21,8 @@ def kill_box():
         if not actions.check_battle() or event_th.is_set():
             return
         time.sleep(random.uniform(2, 2.5))
-        pg.press('space')
         pg.press('8')
+        pg.press('space')
         if not actions.check_battle() or event_th.is_set():
             return
         time.sleep(random.uniform(2, 2.5))
@@ -48,7 +48,7 @@ def run():
                     if event_th.is_set():
                         return
                     while actions.check_battle():
-                        pg.press('4')
+                        # pg.press('4')
                         kill_box()
                         if event_th.is_set():
                             return

@@ -1,10 +1,11 @@
 import pyautogui as pg
 import Constants
-import keyboard
+from pynput.keyboard import Key, Controller
+import time
 
 def check_battle():
     try:
-        pg.locateOnScreen('img/battle_vazio.png', region=Constants.BATTLE_REGION)
+        pg.locateOnScreen('img/battle_vazio.png')
         print('Battle vazio,indo para proxima box...')
         return False 
     except pg.ImageNotFoundException:
@@ -39,22 +40,23 @@ def next_box(path,wait):
         pg.sleep(wait)
 
 loot_coordinates = [
-    (857, 382),
-    (921, 389),
-    (986, 389),
-    (991, 459),
-    (990, 520),
-    (917, 516),
-    (860, 520),
-    (857, 452)
+
+    (891, 432),
+    (835, 432),
+    (778, 432),
+    (778, 374),
+    (778, 315),
+    (835, 315),
+    (891, 315),
+    (891, 374)
 ]
 
 def get_loot():
     print('Coletando loot...')
-    keyboard.press('shift')
+    keyboard = Controller()
+    keyboard.press(Key.shift)
+    time.sleep(0.1)  # Aguarda um curto período de tempo
     for coord in loot_coordinates:
         pg.click(x=coord[0], y=coord[1], button='right')
-    keyboard.release('shift')
-
-
-
+    time.sleep(0.1)  # Aguarda um curto período de tempo
+    keyboard.release(Key.shift)
