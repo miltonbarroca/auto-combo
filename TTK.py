@@ -1,7 +1,6 @@
 import pyautogui as pg
 import time
 import threading
-import time
 import random
 import simplejson as json
 import my_thread
