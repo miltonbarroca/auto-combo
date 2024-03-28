@@ -1,10 +1,12 @@
 import threading
 
-class MyThread():
-    def __init__(self,work):
+class MyThread:
+    def __init__(self, work, *args, **kwargs):
         self.event = threading.Event()
         self.thread = threading.Thread()
         self.work = work
+        self.args = args
+        self.kwargs = kwargs
 
     def start(self):
         self.event.clear()
@@ -15,13 +17,12 @@ class MyThread():
         self.event.set()
         self.thread.join()
 
-
     def run(self):
         while not self.event.is_set():
-            self.work()
-    
+            self.work(*self.args, **self.kwargs)
+
 class ThreadGroup:
-    def __init__(self,list_threads):
+    def __init__(self, list_threads):
         self.my_threads = list_threads
 
     def start(self):
