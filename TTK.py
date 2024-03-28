@@ -3,7 +3,7 @@ import time
 import threading
 import time
 import random
-import json
+import simplejson as json
 import my_thread
 import actions
 import Constants
@@ -84,9 +84,9 @@ global event_th
 event_th = threading.Event()
 th_run = threading.Thread(target=run)
 
-th_check_mana = my_thread.MyThread(lambda: main.mana_check_loop, args=('img/mana_vazia_actionbar.png',))
-th_check_life = my_thread.MyThread(lambda: main.vida_check_loop, args=('img/life_vazia_actionbar.png',))
-th_check_exura = my_thread.MyThread(lambda: main.exura_check_loop, args=('img/exura_life_vazia_actionbar.png',))
+th_check_mana = my_thread.MyThread(lambda: main.mana_check, args=('img/mana_vazia_actionbar.png',))
+th_check_life = my_thread.MyThread(lambda: main.vida_check, args=('img/life_vazia_actionbar.png',))
+th_check_exura = my_thread.MyThread(lambda: main.exura_check, args=('img/exura_life_vazia_actionbar.png',))
 
 group_threads = my_thread.ThreadGroup([th_check_mana,th_check_exura,th_check_life])
 
