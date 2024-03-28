@@ -7,8 +7,7 @@ import json
 import my_thread
 import CheckStatus
 import actions
-import AutoEquip
-from conf import Constants
+import Constants
 from pynput import keyboard
 from pynput.keyboard import Listener
 
@@ -46,7 +45,7 @@ def check_player():
 def run():
     try:
         event_th.is_set()
-        with open(f'modules/{Constants.FOLDER_NAME}/infos.json', 'r') as file:
+        with open(f'{Constants.FOLDER_NAME}/infos.json', 'r') as file:
             data = json.loads(file.read())
         
         while not event_th.is_set():
