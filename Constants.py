@@ -1,6 +1,8 @@
 import random
 import pyautogui as pg
 
+FOLDER_NAME = 'teste'
+
 MINIMAP = (1753,26,108,112)
 
 PIXEL_MANA = (1073, 794)

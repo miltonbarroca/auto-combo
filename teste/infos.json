@@ -1,0 +1,32 @@
+[
+    {
+        "path": "teste/flag_0.png",
+        "down_hole": 0,
+        "up_hole": 0,
+        "wait": 10,
+        "position": [
+            1812,
+            110
+        ]
+    },
+    {
+        "path": "teste/flag_1.png",
+        "down_hole": 0,
+        "up_hole": 0,
+        "wait": 10,
+        "position": [
+            1784,
+            111
+        ]
+    },
+    {
+        "path": "teste/flag_2.png",
+        "down_hole": 0,
+        "up_hole": 0,
+        "wait": 10,
+        "position": [
+            1762,
+            109
+        ]
+    }
+]

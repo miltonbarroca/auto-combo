@@ -1,7 +1,7 @@
 import pyautogui as pg
 from pynput.keyboard import Listener
 from pynput import keyboard
-import json
+import simplejson as json
 import os
 import Constants
 
@@ -28,7 +28,7 @@ class Rec:
     def photo(self):
         x, y = pg.position()
         photo = pg.screenshot(region=(x - 3,y - 3, 6, 6))
-        path = f'modules/{Constants.FOLDER_NAME}/flag_{self.count}.png'
+        path = f'{Constants.FOLDER_NAME}/flag_{self.count}.png'
         photo.save(path)
         self.count = self.count + 1
         infos = {
@@ -50,10 +50,10 @@ class Rec:
 
     def key_code(self,key):
         if key == keyboard.Key.esc:
-            with open(f'modules/{Constants.FOLDER_NAME}/infos.json', 'w') as file:
+            with open(f'{Constants.FOLDER_NAME}/infos.json', 'w') as file:
                 file.write(json.dumps(self.coordinates))
             return False
-        if key == keyboard.Key.insert:
+        if key == keyboard.Key.space:
             self.photo()
         if key == keyboard.Key.page_down:
             self.down_hole()
