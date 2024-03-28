@@ -8,6 +8,7 @@ import my_thread
 import CheckStatus
 import actions
 import Constants
+import main
 from pynput import keyboard
 from pynput.keyboard import Listener
 
@@ -34,13 +35,6 @@ def kill_box():
         if not actions.check_battle() or event_th.is_set():
             return
         time.sleep(random.uniform(2, 2.5))
-def check_player():
-    try:
-        pg.locateOnScreen('img/player.png', confidence=0.9, region=Constants.MINIMAP)
-        print('player encontrado')
-        return False 
-    except pg.ImageNotFoundException:
-        return True
 
 def run():
     try:
@@ -59,38 +53,22 @@ def run():
                         if event_th.is_set():
                             return
                         pg.sleep(1)
-                        actions.get_loot()
+                        main.get_loot()
                         if event_th.is_set():
                             return
-                        AutoEquip.check_ring()
+                        main.ring_check()
                         pg.sleep(1)
-                        AutoEquip.check_amulet()
+                        main.colar_check()
                         pg.sleep(1)
                     actions.next_box(item['path'], item['wait'])
                     pg.sleep(1)         
-                    if actions.check_player():
-                        pg.press('4')
-                        kill_box()
-                        if event_th.is_set():
-                            return
-                        pg.sleep(1)
-                        actions.get_loot()
-                        if event_th.is_set():
-                            return
-                        AutoEquip.check_ring()
-                        pg.sleep(1)
-                        AutoEquip.check_amulet()
                     actions.hole_down(item['down_hole'])
-                    pg.sleep(1)
-                    if event_th.is_set():
-                        return
-                    actions.hole_up(item['up_hole'],'modules/GT_alt/anchor_GT_alt_up.png',270,130)
+                    actions.hole_up(item['up_hole'])#item['up_hole'],'modules/GT_alt/anchor_GT_alt_up.png',270,130
                     pg.sleep(1)
                     if event_th.is_set():
                         return
                 except Exception as e:
-                    print(f"Erro durante a execução: {e}")
-                    
+                    print(f"Erro durante a execução: {e}")           
     except Exception as e:
         print(f"Erro durante a execução geral: {e}")
 
