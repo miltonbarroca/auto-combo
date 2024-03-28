@@ -6,7 +6,7 @@ import simplejson as json
 import my_thread
 import actions
 import Constants
-import main
+from main import mana_check, vida_check, exura_check, ring_check, colar_check, get_loot
 from pynput import keyboard
 from pynput.keyboard import Listener
 
@@ -51,12 +51,12 @@ def run():
                         if event_th.is_set():
                             return
                         pg.sleep(1)
-                        main.get_loot()
+                        get_loot()
                         if event_th.is_set():
                             return
-                        main.ring_check()
+                        ring_check()
                         pg.sleep(1)
-                        main.colar_check()
+                        colar_check()
                         pg.sleep(1)
                     actions.next_box(item['path'], item['wait'])
                     pg.sleep(1)         
@@ -83,11 +83,12 @@ global event_th
 event_th = threading.Event()
 th_run = threading.Thread(target=run)
 
-th_check_mana = my_thread.MyThread(lambda: main.mana_check, args=('img/mana_vazia_actionbar.png',))
-th_check_life = my_thread.MyThread(lambda: main.vida_check, args=('img/life_vazia_actionbar.png',))
-th_check_exura = my_thread.MyThread(lambda: main.exura_check, args=('img/exura_life_vazia_actionbar.png',))
+th_check_mana = my_thread.MyThread(mana_check, 'img/mana_vazia_actionbar.png')
+th_check_life = my_thread.MyThread(vida_check, 'img/life_vazia_actionbar.png')
+th_check_exura = my_thread.MyThread(exura_check, 'img/exura_life_vazia_actionbar.png')
 
 group_threads = my_thread.ThreadGroup([th_check_mana,th_check_exura,th_check_life])
 
 with Listener(on_press=lambda key: key_code(key, group_threads)) as listener :
     listener.join()
+
