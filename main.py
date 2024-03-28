@@ -77,12 +77,6 @@ class MeuPrograma:
             if not self.pausadocombo:
                 kill_box()
             time.sleep(1)
-            
-    def loop_get_loot(self):
-        while self.executando:
-            if not self.pausadocombo:
-                get_loot()
-            time.sleep(4)
 
     def mana_check_loop(self, image_path):
         while self.executando:
@@ -114,7 +108,6 @@ class MeuPrograma:
                 colar_check(image_path)
             time.sleep(5)
             
-
     def on_press(self, key):
         try:
             if key.char == '=' and not self.executando:
@@ -122,7 +115,6 @@ class MeuPrograma:
                 print("Programa iniciado")
 
                 threading.Thread(target=self.loop_kill_box).start()
-                threading.Thread(target=self.loop_get_loot).start()
                 threading.Thread(target=self.mana_check_loop, args=('img/mana_vazia_actionbar.png',)).start()
                 threading.Thread(target=self.vida_check_loop, args=('img/life_vazia_actionbar.png',)).start()
                 threading.Thread(target=self.exura_check_loop, args=('img/exura_life_vazia_actionbar.png',)).start()
@@ -170,6 +162,7 @@ def kill_box():
     if programa.pausadocombo:
         return
     time.sleep(random.uniform(2, 2.5))
+    get_loot()
     
 loot_coordinates = [
 
@@ -185,12 +178,12 @@ loot_coordinates = [
 def get_loot():
     print('Coletando loot...')
     keyboard = Controller()
-    # keyboard.press(Key.shift)
-    # time.sleep(0.1)  # Aguarda um curto período de tempo
+    keyboard.press(Key.shift)
+    time.sleep(0.1)
     for coord in loot_coordinates:
         pg.click(x=coord[0], y=coord[1], button='right')
-    time.sleep(0.1)  # Aguarda um curto período de tempo
-    # keyboard.release(Key.shift)
+    time.sleep(0.1)
+    keyboard.release(Key.shift)
     
 if __name__ == "__main__":
     programa = MeuPrograma()
