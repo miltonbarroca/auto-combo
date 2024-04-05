@@ -28,3 +28,9 @@ BATTLE_REGION = (1572, 24, 154, 51)
 #7 - exeta res
 #6 - exori amp kor
 #4 - utito tempo ou utamo
+
+
+def check():
+    while True:
+        box = pg.locateOnScreen('img/minimap.png')
+        print(box)

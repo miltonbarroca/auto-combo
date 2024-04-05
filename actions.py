@@ -32,7 +32,7 @@ def hole_down(should_down):
             pg.sleep(3)
 
 def next_box(path,wait):
-    flag = pg.locateOnScreen(path, confidence= 0.9,region=Constants.MINIMAP)
+    flag = pg.locateOnScreen(path, confidence= 0.7,region=Constants.MINIMAP)
     if flag:
         x,y = pg.center(flag)
         pg.moveTo(x,y)

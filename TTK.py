@@ -91,4 +91,3 @@ group_threads = my_thread.ThreadGroup([th_check_mana,th_check_exura,th_check_lif
 
 with Listener(on_press=lambda key: key_code(key, group_threads)) as listener :
     listener.join()
-
