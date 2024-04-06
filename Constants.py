@@ -34,3 +34,5 @@ def check():
     while True:
         box = pg.locateOnScreen('img/minimap.png')
         print(box)
+
+check()
